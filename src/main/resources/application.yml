@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: schedule-service
+              uri: lb://SCHEDULE-SERVICE
+              predicates:
+                - Path=/schedule-service/**
+              filters:
+                - StripPrefix=1
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
