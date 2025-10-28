@@ -32,3 +32,13 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://ip-10-0-0-136.ap-northeast-2.compute.internal:8761/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,refresh,metrics
+  endpoint:
+    health:
+      show-details: always
+    env:
+      keys-to-sanitize: ""
