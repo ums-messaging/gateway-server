@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         AWS_REGION = 'ap-northeast-2'
-        TARGET_INSTANCE_ID = 'i-00464ff35252824cb'
+        TARGET_INSTANCE_ID = 'i-07452ec634e40f3a5'
         REGISTRY = "registry.ums.local:5000"
         APP_NAME = "gateway-server"
         IMAGE_TAG = "${env.BUILD_NUMBER}"
