@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: ${PORT:8000}
 
 spring:
   application:
@@ -7,7 +7,7 @@ spring:
   profiles:
     active: dev
   config:
-    import: optional:configserver:http://10.0.0.141:8888
+    import: optional:configserver:http://config-server:8888
   cloud:
     gateway:
       server:
@@ -19,26 +19,3 @@ spring:
                 - Path=/schedule-service/**
               filters:
                 - StripPrefix=1
-
-eureka:
-  instance:
-    prefer-ip-address: true
-    ip-address: ${HOST_IP:10.0.0.136}
-    hostname: ${HOST_IP:10.0.0.136}
-    instance-id: ${spring.application.name}:${HOST_IP:10.0.0.136}:${server.port}
-    non-secure-port: ${PORT:8081}
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://ip-10-0-0-136.ap-northeast-2.compute.internal:8761/eureka/
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,env,refresh,metrics
-  endpoint:
-    health:
-      show-details: always
-    env:
-      keys-to-sanitize: ""
