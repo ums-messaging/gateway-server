@@ -54,15 +54,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    def commands = [
-                        "docker login ${REGISTRY} --username jang314 --password jang314",
-                        "docker pull ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}",
-                        "docker stop ${APP_NAME} || true",
-                        "docker rm ${APP_NAME} || true",
-                        "docker run -d --name ${APP_NAME} -p 8761:8761 ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}"
-                    ]
-                    def commandsJson = groovy.json.JsonOutput.toJson([commands: commands])
-
                     sh """
                         aws ssm send-command \
                             --instance-ids "${TARGET_INSTANCE_ID}" \
@@ -75,7 +66,7 @@ pipeline {
                                "docker pull ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}",
                                "docker stop ${APP_NAME} || true",
                                "docker rm ${APP_NAME} || true",
-                               "docker run -d --name ${APP_NAME} -p 8000:8000 -e HOST_IP=\$(hostname -i) ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}"
+                               "docker run -d --name ${APP_NAME} -p 8000:8000 -e HOST_IP=\$(hostname -i) --add-host=eureka-server:10.0.0.136 --add-host=config-server:10.0.0.141 ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}"
                             ]}'
                     """
                  }
