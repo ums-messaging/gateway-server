@@ -65,7 +65,7 @@ pipeline {
                                "docker pull ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}",
                                "docker stop ${APP_NAME} || true",
                                "docker rm ${APP_NAME} || true",
-                               "docker run -d --name ${APP_NAME} -p 8000:8000 -e HOST_IP=\$(hostname -i) --add-host=eureka-server:10.0.0.136 --add-host=config-server:10.0.0.141 --add-host=kafka:10.0.0.137 ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}"
+                               "docker run -d --name ${APP_NAME} -p 8000:8000 -e HOST_IP=\$(hostname -i) --add-host=eureka-server:10.0.0.139 --add-host=config-server:10.0.0.139 --add-host=kafka:10.0.0.137 ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}"
                             ]}'
                     """
                  }
